@@ -1,0 +1,27 @@
+<ion-view title="Dashboard">
+    <ion-content class="padding">
+        <h1>Dash</h1>
+
+        {{contact}}
+        <p>Create Contact</p>
+
+        <div id="status" name="status">Test for group database</div>
+
+        <p>below is example of load contacts</p>
+        <button ng-click="loadcontacts()" >Load Contacts</button>
+        <ol ng-repeat="contact in contacts">
+            <div ng-show="contact.displayName.length > 0">
+                <li style="list-style: circle">
+                    {{contact.id}}
+                    {{contact.displayName}}
+                    {{contact.phoneNumbers[0].value}}
+                </li>
+            </div>
+        </ol>
+        
+        
+        <p>{{bbb}}</p>
+
+        <input type="text" id="aaaa">
+    </ion-content>
+</ion-view>

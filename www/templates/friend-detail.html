@@ -1,0 +1,41 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view title="{{friend.name}}">
+    <ion-content has-header="true" padding="true">
+        <!--        {{friend.id}}
+                {{friend.name}}
+                {{friend.number}}
+                {{friend.tag}}-->
+        <a id="telephoneno" class="button button-icon icon ion-ios7-telephone" ng-href="tel:+86{{friend.number}}"> Call</a>
+        <div class="list">
+
+            <label class="item item-radio">
+                <input type="radio" ng-model="group" value="1" name="group">
+                <div class="item-content">
+                    Go
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+            <label class="item item-radio">
+                <input type="radio" ng-model="group" value="2" name="group">
+                <div class="item-content">
+                    always
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+            <label class="item item-radio">
+                <input type="radio" ng-model="group" value="3" name="group">
+                <div class="item-content">
+                    sometimes
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+            group = {{group}}
+        </div>
+
+    </ion-content>
+</ion-view>

@@ -1,0 +1,45 @@
+<ion-view title="Friends">
+    <ion-content>
+        <ion-list>
+            <ion-item ng-repeat="friend in friends" type="item-text-wrap" href="#/tab/friend/{{friend.id}}">
+                {{friend.name}}
+            </ion-item>
+        </ion-list>
+        <!--<p ng-contacts>{{aaa}}</p>-->
+        
+<!--        <button ng-contacts>Retrieve Contacts!</button>
+        <ol ng-repeat="contact in contacts">
+            <div ng-show="contact.displayName.length > 0">
+                <li style="list-style: circle">
+                    {{contact.displayName}}
+                    {{contact.phoneNumbers}}
+                </li>
+            </div>
+        </ol>-->
+
+        <div >
+            <a ng-href="tel:+61-451-160-911">Call (03) 9533 1100</a>
+        </div>
+        <div id="status" name="status">Status Message</div>
+        
+
+        
+        <p>below is example of load contacts</p>
+        <button ng-click="loadcontacts()" >Load Contacts</button>
+        <ion-list>
+            <ion-item ng-repeat="contact in contacts" type="item-text-wrap" href="#/tab/friend/{{friend.id}}">
+                {{contact.displayName}}
+            </ion-item>
+        </ion-list>
+        
+<!--        <ol ng-repeat="contact in contacts">
+            <div ng-show="contact.displayName.length > 0">
+                <li style="list-style: circle">
+                    {{contact.id}}
+                    {{contact.displayName}}
+                    {{contact.phoneNumbers[0].value}}
+                </li>
+            </div>
+        </ol>-->
+    </ion-content>
+</ion-view>
