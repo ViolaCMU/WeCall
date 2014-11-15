@@ -1,7 +1,7 @@
 
 angular.module('wecall', ['ionic', 'wecall.controllers', 'wecall.services'])
 
-        .run(function($ionicPlatform, Push) {
+        .run(function($ionicPlatform) {
             $ionicPlatform.ready(function() {
                 // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
                 // for form inputs)
@@ -12,8 +12,8 @@ angular.module('wecall', ['ionic', 'wecall.controllers', 'wecall.services'])
                     // org.apache.cordova.statusbar required
                     StatusBar.styleDefault();
                 }
-                Push.initialize();
-                alert("PushProcessingService is initialized");
+                //Push.initialize();
+                //alert("PushProcessingService is initialized");
             });
         })
 
@@ -53,7 +53,7 @@ angular.module('wecall', ['ionic', 'wecall.controllers', 'wecall.services'])
                             }
                         }
                     })
-
+                    
                     .state('tab.friend-detail', {
                         url: '/friend/:friendId',
                         views: {
@@ -64,12 +64,21 @@ angular.module('wecall', ['ionic', 'wecall.controllers', 'wecall.services'])
                         }
                     })
 
-                    .state('tab.account', {
-                        url: '/account',
+                    .state('tab.groups', {
+                        url: '/groups',
                         views: {
-                            'tab-account': {
-                                templateUrl: 'templates/tab-account.html',
-                                controller: 'AccountCtrl'
+                            'tab-groups': {
+                                templateUrl: 'templates/tab-groups.html',
+                                controller: 'GroupsCtrl'
+                            }
+                        }
+                    })
+                    .state('tab.group-detail', {
+                        url: '/group/:groupId',
+                        views: {
+                            'tab-groups': {
+                                templateUrl: 'templates/group-detail.html',
+                                controller: 'GroupDetailCtrl'
                             }
                         }
                     });
@@ -77,10 +86,5 @@ angular.module('wecall', ['ionic', 'wecall.controllers', 'wecall.services'])
             // if none of the above states are matched, use this as the fallback
             $urlRouterProvider.otherwise('/tab/dash');
 
-
-
-
-
         });
-
 
