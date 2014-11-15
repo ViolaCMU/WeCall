@@ -1,109 +1,79 @@
-function onGCMNotification(e) {
-    alert("in the onGCM");
-    switch (e.event)
-    {
-        case 'registered':
-            if (e.regid.length > 0)
-            {
-                // Your GCM push server needs to know the regID before it can push to this device
-                // here is where you might want to send it the regID for later use.
-                alert("regID = " + e.regid);
-                document.getElementById("aaaa").value = e.regid;
-            }
-            break;
-        case 'message':
-            // if this flag is set, this notification happened while we were in the foreground.
-            // you might want to play a sound to get the user's attention, throw up a dialog, etc.
-            alert("in message");
-            if (e.foreground)
-            {
-                alert("message_foreground");
-
-                // on Android soundname is outside the payload.
-                // On Amazon FireOS all custom attributes are contained within payload
-//                var soundfile = e.soundname || e.payload.sound;
-                // if the notification contains a soundname, play it.
-//                var my_media = new Media("/android_asset/www/" + soundfile);
-//                my_media.play();
-            }
-            else
-            {  // otherwise we were launched because the user touched a notification in the notification tray.
-                alert("message_background");
-                if (e.coldstart)
-                {
-                    alert("message_background:coldstart");
-                    window.location.assign("/friend/e.payload.message");
-                }
-                else
-                {
-                    alert("message_background");
-                    window.location.assign("/friend/e.payload.message");
-                }
-            }
-            break;
-        case 'error':
-            break;
-        default:
-            break;
-    }
-}
 angular.module('wecall.services', [])
 
-//        .factory('Friends', function() {
-//            // Might use a resource here that returns a JSON array
-//            // Some fake testing data
-//            var friends = [
-////                {id: 0, name: 'Scruff McGruff'},
-////                {id: 1, name: 'G.I. Joe'},
-////                {id: 2, name: 'Miss Frizzle'},
-////                {id: 3, name: 'Ash Ketchum'}
-//            ];
-//            return {
-//                all: function() {
-//                    return friends;
-//                },
-//                get: function(ID) {
-//                    // Simple index lookup
-//                    for (var i = 0; i < friends.length; i++) {
-//                        if (friends[i].id == ID) {
-//                            return friends[i];
-//                        }
-//                    }
-//                },
-//                add: function(id, name, number) {
-//                    friends.push({id: id, name: name, number: number});
-//                },
-//                clear: function() {
-//                    friends = [];
-//                }
-//            };
-//        })
         .factory("Push", function() {
             var registerId;
-
-            function onDeviceReady() {
-                // alert("Device Ready");
-                alert('NOTIFY  Device is ready.  Registering with GCM server');
-                //register with google GCM server
-                var pushNotification = window.plugins.pushNotification;
-                pushNotification.register(
-                        successHandler,
-                        errorHandler,
+            function onGCMNotification(e) {
+                alert("in the onGCM");
+                switch (e.event)
+                {
+                    case 'registered':
+                        if (e.regid.length > 0)
                         {
-                            "senderID": "728838277781",
-                            "ecb": "onGCMNotification"
-                        });
+                            // Your GCM push server needs to know the regID before it can push to this device
+                            // here is where you might want to send it the regID for later use.
+                            alert("regID = " + e.regid);
+                            document.getElementById("aaaa").value = e.regid;
+                        }
+                        break;
+                    case 'message':
+                        // if this flag is set, this notification happened while we were in the foreground.
+                        // you might want to play a sound to get the user's attention, throw up a dialog, etc.
+                        alert("in message");
+                        if (e.foreground)
+                        {
+                            alert("message_foreground");
 
-                function successHandler(result) {
-                    alert('result = ' + result);
-                }
-                function errorHandler(error) {
-                    alert('error = ' + error);
+                            // on Android soundname is outside the payload.
+                            // On Amazon FireOS all custom attributes are contained within payload
+//                var soundfile = e.soundname || e.payload.sound;
+                            // if the notification contains a soundname, play it.
+//                var my_media = new Media("/android_asset/www/" + soundfile);
+//                my_media.play();
+                        }
+                        else
+                        {  // otherwise we were launched because the user touched a notification in the notification tray.
+                            alert("message_background");
+                            if (e.coldstart)
+                            {
+                                alert("message_background:coldstart");
+                                window.location.assign("/friend/e.payload.message");
+                            }
+                            else
+                            {
+                                alert("message_background");
+                                window.location.assign("/friend/e.payload.message");
+                            }
+                        }
+                        break;
+                    case 'error':
+                        break;
+                    default:
+                        break;
                 }
             }
             return{
                 initialize: function() {
                     document.addEventListener('deviceready', onDeviceReady, false);
+                    function onDeviceReady() {
+                        // alert("Device Ready");
+                        alert('NOTIFY  Device is ready.  Registering with GCM server');
+                        //register with google GCM server
+                        var pushNotification = window.plugins.pushNotification;
+                        pushNotification.register(
+                                successHandler,
+                                errorHandler,
+                                {
+                                    "senderID": "728838277781",
+                                    "ecb": "onGCMNotification"
+                                });
+
+                        function successHandler(result) {
+                            alert('result = ' + result);
+                        }
+                        function errorHandler(error) {
+                            alert('error = ' + error);
+                        }
+                    }
                 },
                 setRegisterId: function(id) {
                     registerId = id;
@@ -124,7 +94,54 @@ angular.module('wecall.services', [])
             };
 
         })
+        .factory('Friends', function() {
+            // Might use a resource here that returns a JSON array
+            // Some fake testing data
+            var friends = [
+//                {id: 0, name: 'Scruff McGruff'},
+//                {id: 1, name: 'G.I. Joe'},
+//                {id: 2, name: 'Miss Frizzle'},
+//                {id: 3, name: 'Ash Ketchum'}
+            ];
+            return {
+                all: function() {
+                    return friends;
+                },
+                get: function(ID) {
+                    // Simple index lookup
+                    for (var i = 0; i < friends.length; i++) {
+                        if (friends[i].id == ID) {
+                            return friends[i];
+                        }
+                    }
+                },
+                add: function(id, name, number) {
+                    friends.push({id: id, name: name, number: number});
+                },
+                clear: function() {
+                    friends = [];
+                }
+            };
+        })
+        .factory('Groups', function() {
 
+            var groups = [
+                {id: 1, name: 'Can’t live without them'},
+                {id: 2, name: 'My treasured friends'},
+                {id: 3, name: 'Helpful to me'},
+                {id: 4, name: 'I don’t care'},
+                {id: 5, name: 'who’s that'}
+            ];
+            return {
+                all: function() {
+                    return groups;
+                },
+                get: function(ID) {
+                    return groups[ID - 1];
+                }
+                
+            };
+        })
         .factory("ContactService", function($rootScope, $q) {
             return {
                 create: function() {
@@ -354,6 +371,3 @@ UPDATE GROUPS SET tag = ?', [newtag], 'WHERE id = ?', [thisid], 'END ELSE INSERT
                 };
             }]
                 );
-
-
-        

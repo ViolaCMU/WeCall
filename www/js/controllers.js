@@ -17,7 +17,7 @@ angular.module('wecall.controllers', ['ionic'])
             }
         })
 
-        .controller('FriendsCtrl', function($scope, Contacts, Friends, ContactDB) {
+        .controller('FriendsCtrl', function($scope, Contacts, ContactDB) {
 
             Contacts.all(function(list) {
                 var allcontacts = list;
@@ -32,7 +32,7 @@ angular.module('wecall.controllers', ['ionic'])
                         ContactDB.insert(allcontacts[i].id, allcontacts[i].displayName, allcontacts[i].phoneNumbers[0].value, function() {
                             ContactDB.selectall(function(list) {
                                 $scope.friends = list;
-                                //$scope.$digest();
+                                $scope.$digest();
                             });
                         });
                     }
@@ -61,6 +61,7 @@ angular.module('wecall.controllers', ['ionic'])
                 alert($scope.group);
                 var tag = $scope.group;
                 alert(tag);
+                //要将tag update 给GroupDB
                 GroupDB.create(function() {
                     alert("create success");
                     GroupDB.update(2, 2, function() {
@@ -72,45 +73,11 @@ angular.module('wecall.controllers', ['ionic'])
                 });
 
             });
-
-
-
-//            $scope.findContact = function(contactSearch) {
-//                ContactService.find(contactSearch).then(function(contacts) {
-//                    $scope.friend = contacts;
-//                }, function(error) {
-//                    console.log(error);
-//                });
-//            };
         })
 
-        .controller('AccountCtrl', function($scope) {
+        .controller('GroupsCtrl', function($scope,Groups) {
+            $scope.groups = Groups.all();
+        })
+
+        .controller('GroupDetailCtrl', function($scope) {
         });
-
-//改为使用service里面的Contacts来提供联系人服务
-//        .directive('ngContacts', function(Order, Database) {
-//            return {
-//                restrict: 'A',
-//                link: function(scope, elm, attrs, ctrl) {
-//                    elm.on('click', function() {
-//                        //navigator.contacts.create();
-//
-//                        var options = new ContactFindOptions();
-//                        options.multiple = true;
-//                        var each = ["displayName", "phoneNumbers"];
-//                        navigator.contacts.find(each, function(foundcontacts) {
-//                            scope.$apply(function() {
-//                                scope.contacts = Order.setlist(foundcontacts);
-//                                //alert(Order.getlist());
-//
-//                            });
-//                        }, function(error) {
-//                            scope.$apply(function() {
-//                                alert('error: ' + error);
-//                            });
-//                        }, options);
-//                    });
-//                }
-//            };
-//        });
-
